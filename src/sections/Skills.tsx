@@ -59,14 +59,14 @@ function SkillCard({ skill }: { skill: Skill; index: number }) {
         <div
           className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${categoryColors[skill.category]} border opacity-0 md:group-hover:opacity-100 transition-opacity duration-500`}
         />
-        <div className="relative glass rounded-2xl p-5 md:glass-hover transition-all duration-500 md:group-hover:translate-y-[-4px]">
-          <div className="flex flex-col items-center text-center gap-3">
+        <div className="relative glass rounded-2xl p-4 sm:p-5 md:glass-hover transition-all duration-500 md:group-hover:translate-y-[-4px]">
+          <div className="flex flex-col items-center text-center gap-2 sm:gap-3">
             <div
-              className={`w-12 h-12 rounded-xl bg-glass-bg flex items-center justify-center transition-all duration-500 md:group-hover:scale-110 ${iconColors[skill.category]}`}
+              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-glass-bg flex items-center justify-center transition-all duration-500 md:group-hover:scale-110 ${iconColors[skill.category]}`}
             >
-              <Icon size={24} />
+              <Icon size={20} />
             </div>
-            <span className="text-sm font-medium text-text-primary transition-colors duration-300">
+            <span className="text-xs sm:text-sm font-medium text-text-primary transition-colors duration-300 leading-tight">
               {skill.name}
             </span>
             <span className="text-[10px] uppercase tracking-wider text-text-tertiary">

@@ -36,6 +36,8 @@ body {
   background: var(--color-bg-primary);
   color: var(--color-text-primary);
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
 }
 
 ::selection {
@@ -109,10 +111,12 @@ body {
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.glass-hover:hover {
-  background: var(--color-glass-hover);
-  border-color: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.08);
+@media (hover: hover) {
+  .glass-hover:hover {
+    background: var(--color-glass-hover);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 32px rgba(59, 130, 246, 0.08);
+  }
 }
 
 .gradient-text {
@@ -155,16 +159,18 @@ body {
   transition: opacity 0.3s ease;
 }
 
-.gradient-button:hover::before {
-  opacity: 1;
+@media (hover: hover) {
+  .gradient-button:hover::before {
+    opacity: 1;
+  }
+
+  .gradient-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+  }
 }
 
 .gradient-button > * {
   position: relative;
   z-index: 1;
-}
-
-.gradient-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
 }

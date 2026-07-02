@@ -44,7 +44,7 @@ export function Projects({ data }: { data: SiteData }) {
               >
                 <div className="absolute inset-0 bg-gradient-to-br glass rounded-2xl" />
                 <div
-                  className={`absolute inset-0 bg-gradient-to-br ${projectColors[i % projectColors.length]} rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                  className={`absolute inset-0 bg-gradient-to-br ${projectColors[i % projectColors.length]} rounded-2xl opacity-0 md:group-hover:opacity-100 transition-opacity duration-500`}
                 />
 
                 <div className="relative p-5">
@@ -52,11 +52,11 @@ export function Projects({ data }: { data: SiteData }) {
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-500 md:group-hover:scale-110"
                       loading="lazy"
                     />
                     <div
-                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                      className="absolute inset-0 opacity-0 md:group-hover:opacity-100 transition-opacity duration-500"
                       style={{
                         background:
                           "linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.1))",
@@ -64,7 +64,7 @@ export function Projects({ data }: { data: SiteData }) {
                     />
                   </div>
 
-                  <h3 className="text-base font-semibold text-text-primary mb-2 group-hover:text-white transition-colors">
+                  <h3 className="text-base font-semibold text-text-primary mb-2 md:group-hover:text-white transition-colors">
                     {project.title}
                   </h3>
                   <p className="text-sm text-text-secondary leading-relaxed mb-4 line-clamp-2">
@@ -82,7 +82,7 @@ export function Projects({ data }: { data: SiteData }) {
                     ))}
                   </div>
 
-                  <div className="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="flex items-center gap-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
                     {project.liveUrl && (
                       <a
                         href={project.liveUrl}

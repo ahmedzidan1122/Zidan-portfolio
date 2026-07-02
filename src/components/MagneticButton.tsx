@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -25,9 +25,14 @@ export function MagneticButton({
 }: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    setIsTouchDevice("ontouchstart" in window);
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!ref.current) return;
+    if (!ref.current || isTouchDevice) return;
     const rect = ref.current.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
@@ -35,6 +40,7 @@ export function MagneticButton({
   };
 
   const handleMouseLeave = () => {
+    if (isTouchDevice) return;
     setPosition({ x: 0, y: 0 });
   };
 
@@ -55,7 +61,7 @@ export function MagneticButton({
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      animate={{ x: position.x, y: position.y }}
+      animate={!isTouchDevice ? { x: position.x, y: position.y } : {}}
       transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
       className={cn(baseStyles, variants[variant], className)}
     >

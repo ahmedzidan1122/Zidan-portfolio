@@ -72,7 +72,7 @@ export function Contact({ data }: { data: SiteData }) {
             const Icon = item.icon;
             const content = (
               <div className="group relative">
-                <div className="relative glass rounded-xl p-5 glass-hover transition-all duration-500 group-hover:translate-y-[-2px]">
+                <div className="relative glass rounded-xl p-5 glass-hover transition-all duration-500 md:group-hover:translate-y-[-2px]">
                   <div className="flex items-center gap-4">
                     <div
                       className={`w-11 h-11 rounded-xl ${item.bgColor} flex items-center justify-center ${item.color}`}

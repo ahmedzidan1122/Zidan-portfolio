@@ -31,9 +31,9 @@ export function Services({ data }: { data: SiteData }) {
             return (
               <StaggerItem key={service.id}>
                 <div className="group relative">
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent-blue/5 to-accent-purple/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="relative glass rounded-2xl p-6 glass-hover transition-all duration-500 group-hover:translate-y-[-4px]">
-                    <div className="w-12 h-12 rounded-xl bg-accent-blue/10 flex items-center justify-center mb-4 text-accent-cyan group-hover:scale-110 transition-transform duration-500">
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent-blue/5 to-accent-purple/5 opacity-0 md:group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="relative glass rounded-2xl p-6 glass-hover transition-all duration-500 md:group-hover:translate-y-[-4px]">
+                    <div className="w-12 h-12 rounded-xl bg-accent-blue/10 flex items-center justify-center mb-4 text-accent-cyan md:group-hover:scale-110 transition-transform duration-500">
                       <Icon size={24} />
                     </div>
                     <h3 className="text-base font-semibold text-text-primary mb-2">

@@ -26,7 +26,7 @@ export function CreativeInterests({ data }: { data: SiteData }) {
             return (
               <StaggerItem key={interest}>
                 <div className="group relative">
-                  <div className="relative glass rounded-xl p-5 glass-hover flex items-center gap-4 transition-all duration-500 group-hover:translate-x-1">
+                  <div className="relative glass rounded-xl p-5 glass-hover flex items-center gap-4 transition-all duration-500 md:group-hover:translate-x-1">
                     <div className="w-10 h-10 rounded-lg bg-accent-purple/10 flex items-center justify-center text-accent-purple shrink-0">
                       <Icon size={20} />
                     </div>

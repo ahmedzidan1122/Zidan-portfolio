@@ -21,16 +21,18 @@ export function AnimatedSection({
   const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
-    <motion.section
+    <section
       id={id}
       ref={ref}
-      initial={{ opacity: 0 }}
-      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-      transition={{ duration: 0.5, delay }}
-      className={cn("relative", className)}
+      className={cn(
+        "relative transition-all duration-700 ease-out",
+        isInView ? "opacity-100" : "opacity-0",
+        className
+      )}
+      style={{ transitionDelay: `${delay}s` }}
     >
       {children}
-    </motion.section>
+    </section>
   );
 }
 
@@ -70,14 +72,11 @@ export function StaggerChildren({
   className?: string;
   delay?: number;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.05 });
-
   return (
     <motion.div
-      ref={ref}
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.05 }}
       variants={{
         visible: {
           transition: { staggerChildren: 0.05, delayChildren: delay },

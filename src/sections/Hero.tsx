@@ -18,7 +18,7 @@ const floatingPositions = [
 function FloatingGlow({ x, y, size, delay }: { x: string; y: string; size: number; delay: number }) {
   return (
     <motion.div
-      className="absolute rounded-full"
+      className="absolute rounded-full hidden lg:block"
       style={{ left: x, top: y, width: size, height: size }}
       animate={{
         y: [0, -size * 0.3, 0],
@@ -150,9 +150,11 @@ export function Hero({ data }: { data: SiteData }) {
         <FloatingGlow key={i} {...pos} />
       ))}
 
-      <LiquidGlassCircle x="10%" y="10%" size={300} delay={0} />
-      <LiquidGlassCircle x="75%" y="65%" size={200} delay={2} />
-      <LiquidGlassCircle x="60%" y="15%" size={150} delay={4} />
+      <div className="hidden lg:block">
+        <LiquidGlassCircle x="10%" y="10%" size={300} delay={0} />
+        <LiquidGlassCircle x="75%" y="65%" size={200} delay={2} />
+        <LiquidGlassCircle x="60%" y="15%" size={150} delay={4} />
+      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
