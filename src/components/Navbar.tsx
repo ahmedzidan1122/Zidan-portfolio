@@ -69,7 +69,9 @@ export function Navbar() {
                   <InstagramIcon size={18} />
                 </a>
                 <a
-                  href="mailto:zidanv07@gmail.com"
+                  href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=zidanv07@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-text-tertiary hover:text-blue-400 transition-colors"
                   aria-label="Email"
                 >
@@ -138,7 +140,9 @@ export function Navbar() {
                   <InstagramIcon size={20} />
                 </a>
                 <a
-                  href="mailto:zidanv07@gmail.com"
+                  href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=zidanv07@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-text-tertiary hover:text-blue-400 transition-colors"
                   aria-label="Email"
                 >
