@@ -89,9 +89,20 @@ body {
 
 @utility glass {
   background: var(--color-glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(var(--glass-blur, 20px));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 20px));
   border: 1px solid var(--color-glass-border);
+}
+
+@media (max-width: 767px) {
+  :root {
+    --glass-blur: 4px;
+  }
+
+  .glass {
+    backdrop-filter: blur(var(--glass-blur, 4px));
+    -webkit-backdrop-filter: blur(var(--glass-blur, 4px));
+  }
 }
 
 @utility glass-hover {

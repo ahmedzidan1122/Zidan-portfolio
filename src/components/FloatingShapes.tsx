@@ -15,20 +15,26 @@ interface Shape {
 
 export function FloatingShapes() {
   const [shapes, setShapes] = useState<Shape[]>([]);
+  const [isMobile, setIsMobile] = useState(true);
 
   useEffect(() => {
-    const count = 5;
+    const mobile = window.innerWidth < 768;
+    setIsMobile(mobile);
+
+    const count = mobile ? 2 : 5;
     const initial: Shape[] = Array.from({ length: count }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
-      size: Math.random() * 200 + 100,
-      speedX: (Math.random() - 0.5) * 0.15,
-      speedY: (Math.random() - 0.5) * 0.15,
-      opacity: Math.random() * 0.03 + 0.02,
+      size: mobile ? Math.random() * 80 + 40 : Math.random() * 200 + 100,
+      speedX: (Math.random() - 0.5) * (mobile ? 0.05 : 0.15),
+      speedY: (Math.random() - 0.5) * (mobile ? 0.05 : 0.15),
+      opacity: mobile ? 0.01 : Math.random() * 0.03 + 0.02,
       rotation: Math.random() * 360,
-      rotationSpeed: (Math.random() - 0.5) * 0.2,
+      rotationSpeed: (Math.random() - 0.5) * (mobile ? 0.05 : 0.2),
     }));
     setShapes(initial);
+
+    if (mobile) return;
 
     let frame: number;
     const animate = () => {

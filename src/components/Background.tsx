@@ -12,6 +12,8 @@ export function Background() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    const isMobile = window.innerWidth < 768;
+
     let animationId: number;
     let particles: Particle[] = [];
     const mouse = { x: 0, y: 0 };
@@ -35,10 +37,10 @@ export function Background() {
       constructor() {
         this.x = Math.random() * canvas!.width;
         this.y = Math.random() * canvas!.height;
-        this.size = Math.random() * 2 + 0.5;
-        this.speedX = (Math.random() - 0.5) * 0.5;
-        this.speedY = (Math.random() - 0.5) * 0.5;
-        this.opacity = Math.random() * 0.5 + 0.1;
+        this.size = Math.random() * (isMobile ? 1.5 : 2) + 0.5;
+        this.speedX = (Math.random() - 0.5) * (isMobile ? 0.3 : 0.5);
+        this.speedY = (Math.random() - 0.5) * (isMobile ? 0.3 : 0.5);
+        this.opacity = Math.random() * (isMobile ? 0.3 : 0.5) + 0.05;
       }
 
       update() {
@@ -60,12 +62,12 @@ export function Background() {
       }
     }
 
-    const particleCount = Math.min(80, Math.floor((window.innerWidth * window.innerHeight) / 15000));
+    const particleCount = isMobile
+      ? 15
+      : Math.min(60, Math.floor((window.innerWidth * window.innerHeight) / 20000));
     for (let i = 0; i < particleCount; i++) {
       particles.push(new Particle());
     }
-
-    let mouseParticles: { x: number; y: number; opacity: number }[] = [];
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -75,32 +77,25 @@ export function Background() {
         p.draw();
       });
 
-      particles.forEach((a, i) => {
-        for (let j = i + 1; j < particles.length; j++) {
-          const b = particles[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = `rgba(59, 130, 246, ${0.06 * (1 - dist / 120)})`;
-            ctx.stroke();
+      if (!isMobile) {
+        particles.forEach((a, i) => {
+          for (let j = i + 1; j < particles.length; j++) {
+            const b = particles[j];
+            const dx = a.x - b.x;
+            const dy = a.y - b.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 120) {
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.strokeStyle = `rgba(59, 130, 246, ${0.06 * (1 - dist / 120)})`;
+              ctx.stroke();
+            }
           }
-        }
-      });
+        });
+      }
 
-      mouseParticles = mouseParticles.filter((p) => p.opacity > 0);
-      mouseParticles.forEach((p) => {
-        p.opacity -= 0.02;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(139, 92, 246, ${p.opacity * 0.3})`;
-        ctx.fill();
-      });
-
-      if (mouse.x !== 0 || mouse.y !== 0) {
+      if (!isMobile && (mouse.x !== 0 || mouse.y !== 0)) {
         ctx.beginPath();
         ctx.arc(mouse.x, mouse.y, 80, 0, Math.PI * 2);
         const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 80);
@@ -116,8 +111,6 @@ export function Background() {
     const handleMouseMove = (e: MouseEvent) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
-      mouseParticles.push({ x: e.clientX, y: e.clientY, opacity: 1 });
-      if (mouseParticles.length > 20) mouseParticles.shift();
     };
 
     window.addEventListener("mousemove", handleMouseMove);
