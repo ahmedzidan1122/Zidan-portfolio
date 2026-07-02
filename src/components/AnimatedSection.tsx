@@ -18,16 +18,16 @@ export function AnimatedSection({
   id,
 }: AnimatedSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
     <motion.section
       id={id}
       ref={ref}
-      initial={{ opacity: 0, y: 60 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
+      initial={{ opacity: 0, y: 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
       transition={{
-        duration: 0.7,
+        duration: 0.6,
         delay,
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
@@ -50,15 +50,15 @@ export function AnimatedText({
   as?: React.ElementType;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
     <Tag ref={ref} className={className}>
       <motion.span
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 15 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
         transition={{
-          duration: 0.5,
+          duration: 0.4,
           delay,
           ease: [0.25, 0.46, 0.45, 0.94],
         }}
@@ -79,7 +79,7 @@ export function StaggerChildren({
   delay?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: true, amount: 0.05 });
 
   return (
     <motion.div
@@ -88,7 +88,7 @@ export function StaggerChildren({
       animate={isInView ? "visible" : "hidden"}
       variants={{
         visible: {
-          transition: { staggerChildren: 0.08, delayChildren: delay },
+          transition: { staggerChildren: 0.05, delayChildren: delay },
         },
         hidden: {},
       }}
@@ -109,8 +109,8 @@ export function StaggerItem({
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } },
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] } },
       }}
       className={className}
     >

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -23,9 +23,14 @@ export function GlassCard({
   const [rotateY, setRotateY] = useState(0);
   const [glowX, setGlowX] = useState(50);
   const [glowY, setGlowY] = useState(50);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    setIsTouchDevice("ontouchstart" in window);
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || isTouchDevice) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -48,9 +53,9 @@ export function GlassCard({
   return (
     <motion.div
       ref={cardRef}
-      onMouseMove={hover ? handleMouseMove : undefined}
-      onMouseLeave={hover ? handleMouseLeave : undefined}
-      animate={{ rotateX, rotateY }}
+      onMouseMove={hover && !isTouchDevice ? handleMouseMove : undefined}
+      onMouseLeave={hover && !isTouchDevice ? handleMouseLeave : undefined}
+      animate={!isTouchDevice ? { rotateX, rotateY } : {}}
       transition={{ type: "spring", stiffness: 150, damping: 15 }}
       className={cn(
         "glass rounded-2xl p-6",
@@ -58,7 +63,7 @@ export function GlassCard({
         "relative overflow-hidden",
         className
       )}
-      style={{ perspective: 1000, transformStyle: "preserve-3d" }}
+      style={!isTouchDevice ? { perspective: 1000, transformStyle: "preserve-3d" } : undefined}
     >
       {glow && (
         <div
@@ -68,7 +73,7 @@ export function GlassCard({
           }}
         />
       )}
-      <div style={{ transformStyle: "preserve-3d" }}>{children}</div>
+      <div style={!isTouchDevice ? { transformStyle: "preserve-3d" } : undefined}>{children}</div>
     </motion.div>
   );
 }
