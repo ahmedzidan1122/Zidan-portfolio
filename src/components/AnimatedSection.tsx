@@ -24,13 +24,9 @@ export function AnimatedSection({
     <motion.section
       id={id}
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-      transition={{
-        duration: 0.6,
-        delay,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      }}
+      initial={{ opacity: 0 }}
+      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: 0.5, delay }}
       className={cn("relative", className)}
     >
       {children}
@@ -55,13 +51,9 @@ export function AnimatedText({
   return (
     <Tag ref={ref} className={className}>
       <motion.span
-        initial={{ opacity: 0, y: 15 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-        transition={{
-          duration: 0.4,
-          delay,
-          ease: [0.25, 0.46, 0.45, 0.94],
-        }}
+        initial={{ opacity: 0 }}
+        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.4, delay }}
       >
         {children}
       </motion.span>
@@ -109,8 +101,8 @@ export function StaggerItem({
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] } },
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { duration: 0.35 } },
       }}
       className={className}
     >
