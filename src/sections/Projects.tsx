@@ -49,23 +49,17 @@ export function Projects({ data }: { data: SiteData }) {
 
                 <div className="relative p-5">
                   <div className="relative h-40 mb-4 rounded-xl overflow-hidden bg-glass-bg">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="flex flex-col items-center gap-2">
-                        <div className="w-12 h-12 rounded-xl bg-accent-blue/10 flex items-center justify-center">
-                          <span className="text-lg font-bold text-accent-cyan">
-                            {project.title.charAt(0)}
-                          </span>
-                        </div>
-                        <span className="text-[10px] uppercase tracking-wider text-text-tertiary">
-                          Preview
-                        </span>
-                      </div>
-                    </div>
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
+                    />
                     <div
                       className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                       style={{
                         background:
-                          "linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.05))",
+                          "linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.1))",
                       }}
                     />
                   </div>

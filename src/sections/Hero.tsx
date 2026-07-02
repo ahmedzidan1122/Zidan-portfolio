@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { ArrowDown, Eye, FileDown } from "lucide-react";
+import { ArrowDown, Eye } from "lucide-react";
 import { MagneticButton } from "@/components/MagneticButton";
 import { GlassCard } from "@/components/GlassCard";
 import type { SiteData } from "@/lib/types";
@@ -215,10 +215,6 @@ export function Hero({ data }: { data: SiteData }) {
               <MagneticButton href="#projects" variant="primary">
                 <Eye size={16} />
                 View Projects
-              </MagneticButton>
-              <MagneticButton href={data.resumeUrl} variant="secondary" target="_blank">
-                <FileDown size={16} />
-                Download CV
               </MagneticButton>
             </motion.div>
           </div>

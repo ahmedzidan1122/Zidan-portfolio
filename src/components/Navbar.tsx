@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, Menu, X } from "lucide-react";
+import { MessageCircle, Menu, X, Mail } from "lucide-react";
+import { InstagramIcon } from "./Icons";
 import { MagneticButton } from "./MagneticButton";
 import { cn } from "@/lib/utils";
 
@@ -57,6 +58,33 @@ export function Navbar() {
                   {link.label}
                 </a>
               ))}
+              <div className="flex items-center gap-3">
+                <a
+                  href="https://instagram.com/zidan__v7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-text-tertiary hover:text-pink-400 transition-colors"
+                  aria-label="Instagram"
+                >
+                  <InstagramIcon size={18} />
+                </a>
+                <a
+                  href="mailto:zidanv07@gmail.com"
+                  className="text-text-tertiary hover:text-blue-400 transition-colors"
+                  aria-label="Email"
+                >
+                  <Mail size={18} />
+                </a>
+                <a
+                  href="https://wa.me/201006158659"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-text-tertiary hover:text-emerald-400 transition-colors"
+                  aria-label="WhatsApp"
+                >
+                  <MessageCircle size={18} />
+                </a>
+              </div>
               <MagneticButton
                 href="https://wa.me/201006158659"
                 target="_blank"
@@ -99,6 +127,33 @@ export function Navbar() {
                   {link.label}
                 </a>
               ))}
+              <div className="flex items-center gap-4 pt-2 border-t border-glass-border">
+                <a
+                  href="https://instagram.com/zidan__v7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-text-tertiary hover:text-pink-400 transition-colors"
+                  aria-label="Instagram"
+                >
+                  <InstagramIcon size={20} />
+                </a>
+                <a
+                  href="mailto:zidanv07@gmail.com"
+                  className="text-text-tertiary hover:text-blue-400 transition-colors"
+                  aria-label="Email"
+                >
+                  <Mail size={20} />
+                </a>
+                <a
+                  href="https://wa.me/201006158659"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-text-tertiary hover:text-emerald-400 transition-colors"
+                  aria-label="WhatsApp"
+                >
+                  <MessageCircle size={20} />
+                </a>
+              </div>
               <MagneticButton
                 href="https://wa.me/201006158659"
                 target="_blank"

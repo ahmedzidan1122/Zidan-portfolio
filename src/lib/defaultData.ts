@@ -50,7 +50,7 @@ export const defaultData: SiteData = {
       title: "Landing Page Pro",
       description:
         "High-converting landing page template with smooth animations and optimized performance.",
-      image: "/images/project-1.svg",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
       tags: ["HTML", "CSS", "JavaScript", "Animation"],
       liveUrl: "#",
     },
@@ -59,7 +59,7 @@ export const defaultData: SiteData = {
       title: "Portfolio Builder",
       description:
         "Dynamic portfolio website builder with customizable themes and CMS integration.",
-      image: "/images/project-2.svg",
+      image: "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?w=600&h=400&fit=crop",
       tags: ["Next.js", "TypeScript", "Tailwind", "CMS"],
       liveUrl: "#",
     },
@@ -68,7 +68,7 @@ export const defaultData: SiteData = {
       title: "Dashboard UI Kit",
       description:
         "Modern admin dashboard with data visualization, dark mode, and responsive layout.",
-      image: "/images/project-3.svg",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
       tags: ["React", "TypeScript", "Tailwind", "Charts"],
       liveUrl: "#",
     },
@@ -77,7 +77,7 @@ export const defaultData: SiteData = {
       title: "Security Scanner",
       description:
         "Network security analysis tool with vulnerability scanning and reporting features.",
-      image: "/images/project-4.svg",
+      image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=400&fit=crop",
       tags: ["Python", "Security", "Networking"],
       liveUrl: "#",
       githubUrl: "#",
@@ -87,7 +87,7 @@ export const defaultData: SiteData = {
       title: "TaskFlow",
       description:
         "Collaborative task management app with real-time updates and team features.",
-      image: "/images/project-5.svg",
+      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop",
       tags: ["Node.js", "React", "WebSocket", "MongoDB"],
       liveUrl: "#",
     },
@@ -96,7 +96,7 @@ export const defaultData: SiteData = {
       title: "SaaS Website",
       description:
         "Modern SaaS landing page with liquid glass design and premium animations.",
-      image: "/images/project-6.svg",
+      image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&h=400&fit=crop",
       tags: ["Next.js", "Framer Motion", "Tailwind"],
       liveUrl: "#",
     },
