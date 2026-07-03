@@ -21,7 +21,7 @@ export function Projects({ data }: { data: SiteData }) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   return (
-    <AnimatedSection id="projects" className="py-24 md:py-32">
+    <AnimatedSection id="projects" className="py-24 md:py-32" variant="slide-right">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <AnimatedText delay={0}>

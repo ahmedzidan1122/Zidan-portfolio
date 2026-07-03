@@ -18,6 +18,7 @@ export interface Skill {
   name: string;
   icon: string;
   category: "frontend" | "backend" | "design" | "security" | "other";
+  level?: number;
 }
 
 export interface Experience {

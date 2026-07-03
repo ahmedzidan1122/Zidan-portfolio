@@ -25,12 +25,12 @@ export function CursorGlow() {
     <div
       className="fixed pointer-events-none z-[9999] hidden lg:block"
       style={{
-        left: position.x - 150,
-        top: position.y - 150,
-        width: 300,
-        height: 300,
+        left: position.x - 250,
+        top: position.y - 250,
+        width: 500,
+        height: 500,
         background:
-          "radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, transparent 70%)",
+          "radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(59, 130, 246, 0.04) 40%, transparent 70%)",
         borderRadius: "50%",
         transform: "translate(0, 0)",
         willChange: "transform",

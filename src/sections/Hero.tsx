@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ArrowDown, Eye } from "lucide-react";
 import { MagneticButton } from "@/components/MagneticButton";
 import { GlassCard } from "@/components/GlassCard";
+import { PythonIcon, ReactIcon, JavaScriptIcon, TypeScriptIcon } from "@/components/Icons";
 import type { SiteData } from "@/lib/types";
 
 const floatingPositions = [
@@ -232,17 +233,44 @@ export function Hero({ data }: { data: SiteData }) {
               }}
             >
               <div className="relative w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[400px] md:h-[400px]">
-                <div
+                <motion.div
                   className="absolute inset-0 rounded-full"
+                  animate={{
+                    scale: [1, 1.08, 1],
+                    opacity: [0.4, 0.7, 0.4],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
                   style={{
                     background:
-                      "linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.15))",
-                    filter: "blur(20px)",
+                      "radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.2), transparent 70%)",
+                    filter: "blur(30px)",
+                  }}
+                />
+                <motion.div
+                  className="absolute inset-4 rounded-full"
+                  animate={{
+                    scale: [1, 1.12, 1],
+                    opacity: [0.3, 0.6, 0.3],
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1,
+                  }}
+                  style={{
+                    background:
+                      "radial-gradient(circle at 70% 70%, rgba(6, 182, 212, 0.25), rgba(59, 130, 246, 0.15), transparent 60%)",
+                    filter: "blur(40px)",
                   }}
                 />
                 <div
                   className="absolute inset-2 rounded-full glass overflow-hidden"
-                  style={{ border: "1px solid rgba(255, 255, 255, 0.08)","--tw-ring-color": "rgba(59,130,246,0.3)" }}
+                  style={{ border: "1px solid rgba(255, 255, 255, 0.08)" }}
                 >
                   <Image
                     src={data.profileImage}
@@ -272,14 +300,18 @@ export function Hero({ data }: { data: SiteData }) {
                 >
                   <div className="flex items-center gap-2">
                     <div className="flex -space-x-1">
-                      {["JS", "PY", "RC"].map((l, i) => (
-                        <span
-                          key={i}
-                          className="w-6 h-6 rounded-full bg-accent-blue/20 border border-glass-border flex items-center justify-center text-[8px] font-bold text-accent-cyan"
-                        >
-                          {l}
-                        </span>
-                      ))}
+                      <span className="w-6 h-6 rounded-full bg-accent-blue/20 border border-glass-border flex items-center justify-center text-accent-cyan">
+                        <ReactIcon size={14} />
+                      </span>
+                      <span className="w-6 h-6 rounded-full bg-accent-blue/20 border border-glass-border flex items-center justify-center text-yellow-400">
+                        <JavaScriptIcon size={14} />
+                      </span>
+                      <span className="w-6 h-6 rounded-full bg-accent-blue/20 border border-glass-border flex items-center justify-center text-blue-400">
+                        <TypeScriptIcon size={14} />
+                      </span>
+                      <span className="w-6 h-6 rounded-full bg-accent-blue/20 border border-glass-border flex items-center justify-center text-emerald-400">
+                        <PythonIcon size={14} />
+                      </span>
                     </div>
                     <span className="text-text-secondary text-xs">+3</span>
                   </div>

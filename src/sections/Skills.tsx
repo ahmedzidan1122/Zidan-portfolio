@@ -1,5 +1,7 @@
 "use client";
 
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import {
   Code2,
   Globe,
@@ -17,6 +19,7 @@ import {
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { SectionLabel, SectionTitle } from "@/components/GlassCard";
 import { StaggerChildren, StaggerItem } from "@/components/AnimatedSection";
+import { cn } from "@/lib/utils";
 import type { SiteData, Skill } from "@/lib/types";
 
 const iconMap: Record<string, React.ElementType> = {
@@ -34,14 +37,6 @@ const iconMap: Record<string, React.ElementType> = {
   language: Languages,
 };
 
-const categoryColors: Record<string, string> = {
-  frontend: "from-blue-500/20 to-cyan-500/20 border-blue-500/20",
-  backend: "from-emerald-500/20 to-teal-500/20 border-emerald-500/20",
-  design: "from-purple-500/20 to-pink-500/20 border-purple-500/20",
-  security: "from-red-500/20 to-orange-500/20 border-red-500/20",
-  other: "from-yellow-500/20 to-amber-500/20 border-yellow-500/20",
-};
-
 const iconColors: Record<string, string> = {
   frontend: "text-blue-400",
   backend: "text-emerald-400",
@@ -50,29 +45,67 @@ const iconColors: Record<string, string> = {
   other: "text-yellow-400",
 };
 
-function SkillCard({ skill }: { skill: Skill; index: number }) {
+const barColors: Record<string, string> = {
+  frontend: "bg-gradient-to-r from-blue-500 to-cyan-400",
+  backend: "bg-gradient-to-r from-emerald-500 to-teal-400",
+  design: "bg-gradient-to-r from-purple-500 to-pink-400",
+  security: "bg-gradient-to-r from-red-500 to-orange-400",
+  other: "bg-gradient-to-r from-yellow-500 to-amber-400",
+};
+
+function SkillProgressBar({ level }: { level: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.5 });
+
+  return (
+    <div ref={ref} className="w-full h-1.5 rounded-full bg-glass-bg overflow-hidden mt-2">
+      <motion.div
+        className="h-full rounded-full"
+        initial={{ width: 0 }}
+        animate={isInView ? { width: `${level}%` } : { width: 0 }}
+        transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+      />
+    </div>
+  );
+}
+
+function SkillCard({ skill }: { skill: Skill }) {
   const Icon = iconMap[skill.icon] || Code2;
 
   return (
     <StaggerItem>
-      <div className="relative">
-        <div
-          className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${categoryColors[skill.category]} border opacity-0 md:group-hover:opacity-100 transition-opacity duration-500`}
-        />
-        <div className="relative glass rounded-2xl p-4 sm:p-5 md:glass-hover transition-all duration-500 md:group-hover:translate-y-[-4px]">
-          <div className="flex flex-col items-center text-center gap-2 sm:gap-3">
-            <div
-              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-glass-bg flex items-center justify-center transition-all duration-500 md:group-hover:scale-110 ${iconColors[skill.category]}`}
-            >
-              <Icon size={20} />
+      <div className="glass rounded-2xl p-4 sm:p-5 glass-hover transition-all duration-500 hover:translate-y-[-4px]">
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div
+                className={cn(
+                  "w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-glass-bg flex items-center justify-center shrink-0",
+                  iconColors[skill.category]
+                )}
+              >
+                <Icon size={18} />
+              </div>
+              <div className="min-w-0">
+                <span className="text-xs sm:text-sm font-medium text-text-primary block truncate">
+                  {skill.name}
+                </span>
+                <span className="text-[10px] uppercase tracking-wider text-text-tertiary">
+                  {skill.category}
+                </span>
+              </div>
             </div>
-            <span className="text-xs sm:text-sm font-medium text-text-primary transition-colors duration-300 leading-tight">
-              {skill.name}
-            </span>
-            <span className="text-[10px] uppercase tracking-wider text-text-tertiary">
-              {skill.category}
-            </span>
+            {skill.level && (
+              <span className="text-xs font-mono text-text-tertiary">{skill.level}%</span>
+            )}
           </div>
+          {skill.level && (
+            <div
+              className={cn("h-1.5 rounded-full bg-glass-bg overflow-hidden")}
+            >
+              <SkillProgressBar level={skill.level} />
+            </div>
+          )}
         </div>
       </div>
     </StaggerItem>
@@ -81,16 +114,16 @@ function SkillCard({ skill }: { skill: Skill; index: number }) {
 
 export function Skills({ data }: { data: SiteData }) {
   return (
-    <AnimatedSection id="skills" className="py-24 md:py-32">
+    <AnimatedSection id="skills" className="py-24 md:py-32" variant="scale">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <SectionLabel>Skills & Expertise</SectionLabel>
           <SectionTitle>Technologies I work with</SectionTitle>
         </div>
 
-        <StaggerChildren className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {data.skills.map((skill, i) => (
-            <SkillCard key={skill.name} skill={skill} index={i} />
+        <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {data.skills.map((skill) => (
+            <SkillCard key={skill.name} skill={skill} />
           ))}
         </StaggerChildren>
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { MessageCircle, Menu, X, Mail } from "lucide-react";
 import { InstagramIcon } from "./Icons";
 import { MagneticButton } from "./MagneticButton";

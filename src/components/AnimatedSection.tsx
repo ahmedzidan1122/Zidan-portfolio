@@ -4,35 +4,68 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { cn } from "@/lib/utils";
 
+type AnimationVariant = "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "scale";
+
 interface AnimatedSectionProps {
   children: React.ReactNode;
   className?: string;
   delay?: number;
   id?: string;
+  variant?: AnimationVariant;
 }
+
+const variantStyles: Record<AnimationVariant, { hidden: object; visible: object }> = {
+  "fade": {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  },
+  "slide-up": {
+    hidden: { opacity: 0, y: 60 },
+    visible: { opacity: 1, y: 0 },
+  },
+  "slide-down": {
+    hidden: { opacity: 0, y: -60 },
+    visible: { opacity: 1, y: 0 },
+  },
+  "slide-left": {
+    hidden: { opacity: 0, x: 60 },
+    visible: { opacity: 1, x: 0 },
+  },
+  "slide-right": {
+    hidden: { opacity: 0, x: -60 },
+    visible: { opacity: 1, x: 0 },
+  },
+  "scale": {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { opacity: 1, scale: 1 },
+  },
+};
 
 export function AnimatedSection({
   children,
   className,
   delay = 0,
   id,
+  variant = "slide-up",
 }: AnimatedSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const v = variantStyles[variant];
 
   return (
-    <section
+    <motion.section
       id={id}
       ref={ref}
-      className={cn(
-        "relative transition-all duration-700 ease-out",
-        isInView ? "opacity-100" : "opacity-0",
-        className
-      )}
-      style={{ transitionDelay: `${delay}s` }}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={{
+        hidden: v.hidden,
+        visible: { ...v.visible, transition: { duration: 0.7, delay, ease: [0.25, 0.46, 0.45, 0.94] } },
+      }}
+      className={cn("relative", className)}
     >
       {children}
-    </section>
+    </motion.section>
   );
 }
 
