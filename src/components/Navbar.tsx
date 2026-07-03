@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, Menu, X, Mail } from "lucide-react";
 import { InstagramIcon } from "./Icons";
 import { MagneticButton } from "./MagneticButton";
@@ -17,13 +17,33 @@ const navLinks = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(total > 0 ? Math.min(window.scrollY / total, 1) : 0);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+    const sections = document.querySelectorAll("section[id]");
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -39,6 +59,10 @@ export function Navbar() {
             : "bg-transparent"
         )}
       >
+        <div
+          className="absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-accent-blue via-accent-purple to-accent-cyan transition-all duration-150"
+          style={{ width: `${scrollProgress * 100}%` }}
+        />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             <a
@@ -53,9 +77,20 @@ export function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-300"
+                  className={cn(
+                    "text-sm transition-colors duration-300 relative",
+                    activeSection === link.href.slice(1)
+                      ? "text-text-primary"
+                      : "text-text-secondary hover:text-text-primary"
+                  )}
                 >
                   {link.label}
+                  {activeSection === link.href.slice(1) && (
+                    <motion.div
+                      layoutId="nav-underline"
+                      className="absolute -bottom-1 left-0 right-0 h-[2px] bg-accent-blue rounded-full"
+                    />
+                  )}
                 </a>
               ))}
               <div className="flex items-center gap-3">

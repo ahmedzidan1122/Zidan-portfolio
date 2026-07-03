@@ -89,6 +89,25 @@ function LiquidGlassCircle({
   );
 }
 
+function TypeWriter({ text, delay = 0 }: { text: string; delay?: number }) {
+  const [displayed, setDisplayed] = useState("");
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      let i = 0;
+      const interval = setInterval(() => {
+        setDisplayed(text.slice(0, i + 1));
+        i++;
+        if (i >= text.length) clearInterval(interval);
+      }, 40);
+      return () => clearInterval(interval);
+    }, delay * 1000);
+    return () => clearTimeout(timeout);
+  }, [text, delay]);
+
+  return <span>{displayed}</span>;
+}
+
 export function Hero({ data }: { data: SiteData }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -190,14 +209,14 @@ export function Hero({ data }: { data: SiteData }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
-              {titleLines.map((line, i) => (
-                <p
-                  key={i}
-                  className="text-xl sm:text-2xl md:text-3xl text-text-secondary font-medium"
-                >
-                  {line}
+              <p className="text-xl sm:text-2xl md:text-3xl text-text-secondary font-medium">
+                <TypeWriter text={titleLines[0]} delay={0.8} />
+              </p>
+              {titleLines[1] && (
+                <p className="text-xl sm:text-2xl md:text-3xl text-text-secondary font-medium">
+                  <TypeWriter text={titleLines[1]} delay={2.3} />
                 </p>
-              ))}
+              )}
             </motion.div>
 
             <motion.p
@@ -233,6 +252,40 @@ export function Hero({ data }: { data: SiteData }) {
               }}
             >
               <div className="relative w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[400px] md:h-[400px]">
+                <div
+                  className="absolute inset-0 rounded-full"
+                  style={{
+                    animation: "orbit-rotate 12s linear infinite",
+                  }}
+                >
+                  <div
+                    className="absolute w-3 h-3 rounded-full bg-accent-blue/60"
+                    style={{ top: "-6px", left: "50%", marginLeft: "-6px" }}
+                  />
+                </div>
+                <div
+                  className="absolute inset-0 rounded-full"
+                  style={{
+                    animation: "orbit-rotate-reverse 18s linear infinite",
+                  }}
+                >
+                  <div
+                    className="absolute w-2 h-2 rounded-full bg-accent-cyan/50"
+                    style={{ top: "50%", right: "-5px", marginTop: "-4px" }}
+                  />
+                </div>
+                <div
+                  className="absolute inset-0 rounded-full"
+                  style={{
+                    animation: "orbit-rotate 24s linear infinite",
+                    animationDelay: "-6s",
+                  }}
+                >
+                  <div
+                    className="absolute w-2.5 h-2.5 rounded-full bg-accent-purple/50"
+                    style={{ bottom: "-5px", left: "45%", marginLeft: "-5px" }}
+                  />
+                </div>
                 <motion.div
                   className="absolute inset-0 rounded-full"
                   animate={{

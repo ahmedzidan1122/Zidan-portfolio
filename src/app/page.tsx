@@ -3,6 +3,8 @@
 import { Background } from "@/components/Background";
 import { CursorGlow } from "@/components/CursorGlow";
 import { FloatingShapes } from "@/components/FloatingShapes";
+import { NoiseOverlay } from "@/components/NoiseOverlay";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/sections/Hero";
 import { About } from "@/sections/About";
@@ -18,10 +20,12 @@ import { defaultData } from "@/lib/defaultData";
 export default function Home() {
   return (
     <>
+      <NoiseOverlay />
       <Background />
       <FloatingShapes />
       <CursorGlow />
       <Navbar />
+      <ScrollToTop />
       <main className="relative z-10">
         <Hero data={defaultData} />
         <About data={defaultData} />

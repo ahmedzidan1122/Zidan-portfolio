@@ -19,6 +19,10 @@ const projectColors = [
 
 export function Projects({ data }: { data: SiteData }) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [activeTag, setActiveTag] = useState("All");
+
+  const allTags = ["All", ...Array.from(new Set(data.projects.flatMap((p) => p.tags)))];
+  const filtered = activeTag === "All" ? data.projects : data.projects.filter((p) => p.tags.includes(activeTag));
 
   return (
     <AnimatedSection id="projects" className="py-24 md:py-32" variant="slide-right">
@@ -32,8 +36,24 @@ export function Projects({ data }: { data: SiteData }) {
           </AnimatedText>
         </div>
 
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
+          {allTags.map((tag) => (
+            <button
+              key={tag}
+              onClick={() => setActiveTag(tag)}
+              className={`text-xs px-3 py-1.5 rounded-full border transition-all duration-300 ${
+                activeTag === tag
+                  ? "bg-accent-blue/20 border-accent-blue/40 text-accent-cyan"
+                  : "bg-glass-bg border-glass-border text-text-tertiary hover:text-text-secondary hover:border-text-tertiary"
+              }`}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+
         <StaggerChildren className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {data.projects.map((project, i) => (
+          {filtered.map((project, i) => (
             <StaggerItem key={project.id}>
               <motion.div
                 className="group relative rounded-2xl overflow-hidden cursor-pointer"
