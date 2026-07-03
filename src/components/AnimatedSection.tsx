@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, type Variants } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 type AnimationVariant = "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "scale";
@@ -14,30 +14,30 @@ interface AnimatedSectionProps {
   variant?: AnimationVariant;
 }
 
-const variantStyles: Record<AnimationVariant, { hidden: object; visible: object }> = {
+const variantStyles: Record<AnimationVariant, Variants> = {
   "fade": {
     hidden: { opacity: 0 },
-    visible: { opacity: 1 },
+    visible: { opacity: 1, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] } },
   },
   "slide-up": {
     hidden: { opacity: 0, y: 60 },
-    visible: { opacity: 1, y: 0 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] } },
   },
   "slide-down": {
     hidden: { opacity: 0, y: -60 },
-    visible: { opacity: 1, y: 0 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] } },
   },
   "slide-left": {
     hidden: { opacity: 0, x: 60 },
-    visible: { opacity: 1, x: 0 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] } },
   },
   "slide-right": {
     hidden: { opacity: 0, x: -60 },
-    visible: { opacity: 1, x: 0 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] } },
   },
   "scale": {
     hidden: { opacity: 0, scale: 0.9 },
-    visible: { opacity: 1, scale: 1 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] } },
   },
 };
 
@@ -50,7 +50,7 @@ export function AnimatedSection({
 }: AnimatedSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
-  const v = variantStyles[variant];
+  const v = variantStyles[variant] as Variants;
 
   return (
     <motion.section
@@ -58,10 +58,7 @@ export function AnimatedSection({
       ref={ref}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
-      variants={{
-        hidden: v.hidden,
-        visible: { ...v.visible, transition: { duration: 0.7, delay, ease: [0.25, 0.46, 0.45, 0.94] } },
-      }}
+      variants={v}
       className={cn("relative", className)}
     >
       {children}
