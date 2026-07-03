@@ -1,7 +1,5 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
 import {
   Code2,
   Globe,
@@ -45,30 +43,6 @@ const iconColors: Record<string, string> = {
   other: "text-yellow-400",
 };
 
-const barColors: Record<string, string> = {
-  frontend: "bg-gradient-to-r from-blue-500 to-cyan-400",
-  backend: "bg-gradient-to-r from-emerald-500 to-teal-400",
-  design: "bg-gradient-to-r from-purple-500 to-pink-400",
-  security: "bg-gradient-to-r from-red-500 to-orange-400",
-  other: "bg-gradient-to-r from-yellow-500 to-amber-400",
-};
-
-function SkillProgressBar({ level }: { level: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.5 });
-
-  return (
-    <div ref={ref} className="w-full h-1.5 rounded-full bg-glass-bg overflow-hidden mt-2">
-      <motion.div
-        className="h-full rounded-full"
-        initial={{ width: 0 }}
-        animate={isInView ? { width: `${level}%` } : { width: 0 }}
-        transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-      />
-    </div>
-  );
-}
-
 function SkillCard({ skill }: { skill: Skill }) {
   const Icon = iconMap[skill.icon] || Code2;
 
@@ -95,17 +69,7 @@ function SkillCard({ skill }: { skill: Skill }) {
                 </span>
               </div>
             </div>
-            {skill.level && (
-              <span className="text-xs font-mono text-text-tertiary">{skill.level}%</span>
-            )}
           </div>
-          {skill.level && (
-            <div
-              className={cn("h-1.5 rounded-full bg-glass-bg overflow-hidden")}
-            >
-              <SkillProgressBar level={skill.level} />
-            </div>
-          )}
         </div>
       </div>
     </StaggerItem>
