@@ -18,8 +18,8 @@ const contactItems = [
   {
     icon: Mail,
     label: "Email",
-    value: "zidanv07@gmail.com",
-    href: "https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=zidanv07@gmail.com",
+    value: "zidanverse@gmail.com",
+    href: "https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=zidanverse@gmail.com",
     color: "text-blue-400",
     bgColor: "bg-blue-500/10",
   },

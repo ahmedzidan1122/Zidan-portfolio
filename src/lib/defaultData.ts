@@ -138,7 +138,7 @@ export const defaultData: SiteData = {
     "Learning New Technologies",
   ],
   contact: {
-    email: "zidanverse@gamil.com",
+    email: "zidanverse@gmail.com",
     phone: "+201006158659",
     whatsapp: "https://wa.me/201006158659",
     location: "Egypt",
